@@ -1,0 +1,51 @@
+/*
+You are attempting to find the index of the first appearance of one string (the needle) inside of another (the haystack).
+/*
+You are attempting to find the index of the first appearance of one string (the needle) inside of another (the haystack).
+
+Examples
+indexOf('or', 'hello world'); // should return 7
+indexOf('howdy', 'hello world'); // should return -1
+
+Questions to ask:
+Do caps matter?
+
+time complexity: O(n*m)
+space complexity: O(1)
+*/
+
+const indexOf = (needle, haystack) => {
+  //first loop makes sure we don't check passed the amount of letters there are
+  for (let i = 0; i + needle.length < haystack.length; i++) {
+    //second loop ensures we check for the length of the needle while we are on i
+    for (let j = 0; j < needle.length; j++) {
+      // if the letter does not match the letter in the needle break out of j loop, which increments i
+      if (haystack[i + j] !== needle[j]) break;
+      // if we have gotten this far and j+1 is the length of the needle return true;
+      if (j + 1 === needle.length) return i;
+    }
+  }
+  return -1;
+};
+
+console.log(indexOf('or', 'hello world'));
+console.log(indexOf('howdy', 'hello world'));
+
+//only checks the inner loop if the first letter of haystack is found
+const indexOf = (needle, haystack) => {
+  let stringToCheck = "";
+  for (let i = 0; i < haystack.length; i++) {
+    if (haystack[i] === needle[0]) {
+      let end = i + needle.length;
+      for (let j = i; j < end; j++){
+        stringToCheck += haystack[j]; 
+      }
+      if (stringToCheck === needle) {
+        return i;
+      } else {
+        stringToCheck = '';
+      }
+    }
+  }
+  return -1;
+};
